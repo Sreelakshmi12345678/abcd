@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College Event Hub</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1em;
+        }
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            background-color: #343a40;
+            padding: 10px;
+        }
+        nav button {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            margin: 5px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .search-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        #searchInput {
+            padding: 10px;
+            width: 300px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>College Event Hub</h1>
+</header>
+
+<nav>
+    <button onclick="showPage('events')">Events</button>
+    <button onclick="showPage('profile')">Profile</button>
+    <button onclick="showPage('notifications')">Notifications</button>
+</nav>
+
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Search College Events" onkeyup="searchEvents()">
+</div>
+
+<div id="events" class="container hidden">
+    <h2>Select Event Type</h2>
+    <nav>
+        <button onclick="showPage('cultural')">Cultural Events</button>
+        <button onclick="showPage('noncultural')">Non-Cultural Events</button>
+    </nav>
+</div>
+
+<div id="cultural" class="container hidden">
+    <h2>Cultural Events</h2>
+    <h3>Dance competition</h3>
+    <p>Venue: EEE Auditorium<br> Date: 26th March 2025<br> Time: 10:00 AM</p>
+    <h3>Music competition</h3>
+    <p>Venue: CS Auditorium<br> Date: 29th March 2025<br> Time: 9:00 AM</p>
+    <p><em>Additional cultural events are yet to be published. Stay tuned!</em></p>
+</div>
+
+<div id="noncultural" class="container hidden">
+    <h2>Non-Cultural Events</h2>
+    <h3>INNOVAS Hackathon</h3>
+    <p>Venue: ASAP Room<br> Date: 30th April 2025<br> Time: 10:00 AM</p>
+    <h3>AI ML WORKSHOP</h3>
+    <p>Venue: CS Auditorium<br> Date: 11th April 2025<br> Time: 9:00 AM</p>
+</div>
+
+<div id="profile" class="container hidden">
+    <h2>My Profile</h2>
+    <p><strong>Name:</strong> John Doe</p>
+    <p><strong>Activity Points:</strong> 50</p>
+    <p><strong>Certifications:</strong> Workshop, Hackathon</p>
+    <h3>Skills Learned</h3>
+    <canvas id="skillsChart" width="400" height="200"></canvas>
+</div>
+
+<div id="notifications" class="container hidden">
+    <h2>Upcoming Events</h2>
+    <p>XYZ College - Hackathon on 2024-12-15</p>
+    <p>ABC College - Art Festival on 2024-12-20</p>
+</div>
+
+<script>
+    function showPage(pageId) {
+        document.querySelectorAll('.container').forEach(div => {
+            div.classList.add('hidden');
+        });
+        document.getElementById(pageId).classList.remove('hidden');
+    }
+
+    function searchEvents() {
+        let input = document.getElementById('searchInput').value.toLowerCase();
+        let allEvents = document.querySelectorAll('.container h3, .container p');
+        
+        allEvents.forEach(event => {
+            event.style.display = event.innerText.toLowerCase().includes(input) ? 'block' : 'none';
+        });
+    }
+
+    // Chart for Skills Learned
+    document.addEventListener("DOMContentLoaded", function() {
+        var ctx = document.getElementById('skillsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['Python', 'AI/ML', 'Web Development', 'Data Science', 'Cybersecurity'],
+                datasets: [{
+                    label: 'Skills Acquired',
+                    data: [8, 6, 7, 5, 4],
+                    backgroundColor: ['#007bff', '#28a745', '#ffc107', '#dc3545', '#17a2b8']
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
